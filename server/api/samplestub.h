@@ -6,7 +6,7 @@
 #ifndef __dbusxx__samplestub_h__ADAPTOR_MARSHAL_H
 #define __dbusxx__samplestub_h__ADAPTOR_MARSHAL_H
 
-#include <dbus-c++/dbus.h>
+#include <dbus-c++-1/dbus-c++/dbus.h>
 #include <cassert>
 
 namespace com {

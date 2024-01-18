@@ -1,63 +1,37 @@
-#include <iostream>
-#include <string>
-#include "api/DBusClient.h"
+#include "DBusClient.h"
 
-DBusClient::DBusClient() : dispatcherPtr(new DBus::DefaultDispatcher()), conn(dispatcherPtr) {
-    // Additional initialization if needed
+DBusClient::DBusClient(DBus::Connection &connection, const char *path)
+    : proxy(new com::example::DatabaseManager_proxy(connection, path)) {}
+
+void DBusClient::performOperations() {
+    // Use the proxy to call D-Bus methods
+    proxy->Create();
+    proxy->Read();
+    proxy->Update();
+    proxy->Delete();
 }
 
+// Destructor to clean up the proxy object
 DBusClient::~DBusClient() {
-    // Clean up resources
-    delete dispatcherPtr;
+    delete proxy;
 }
 
-bool DBusClient::connectToDBus() {
+int main() {
+    DBus::default_dispatcher_t::pointer_t dispatcher = DBus::DefaultDispatcher::create();
+    DBus::Connection::pointer conn = DBus::Connection::create(dispatcher, "tcp:host=localhost,port=12345");
+
+    DBusClient dbusClient(*conn, "/com/example/DatabaseManager");
+
     try {
-        // Assuming you want to connect to the session bus
-        conn->open(DBus::Connection::Session);
-        return true;
-    } catch (DBus::Error& e) {
-        std::cerr << "Failed to connect to D-Bus: " << e.what() << std::endl;
-        return false;
+        conn->enter();
+        std::cout << "Connected to D-Bus server." << std::endl;
+
+        dbusClient.performOperations();
+
+    } catch (DBus::Error &e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return 1;
     }
-}
 
-std::string DBusClient::createData(const std::string& data) {
-    return invokeMethod("Create", 0, data);
-}
-
-std::string DBusClient::readData(int id) {
-    return invokeMethod("Read", id, "");
-}
-
-bool DBusClient::updateData(int id, const std::string& newData) {
-    try {
-        invokeMethod("Update", id, newData);
-        return true;
-    } catch (DBus::Error& e) {
-        std::cerr << "Error updating data: " << e.what() << std::endl;
-        return false;
-    }
-}
-
-bool DBusClient::deleteData(int id) {
-    try {
-        invokeMethod("Delete", id, "");
-        return true;
-    } catch (DBus::Error& e) {
-        std::cerr << "Error deleting data: " << e.what() << std::endl;
-        return false;
-    }
-}
-
-std::string DBusClient::invokeMethod(const char* methodName, int id, const std::string& data) {
-    try {
-        DBus::Message msg = conn->call_method("com.example.DatabaseManager", "/" /* object path */, "com.example.DatabaseManager", methodName, id, data);
-        std::string result;
-        msg >> result;
-        return result;
-    } catch (DBus::Error& e) {
-        std::cerr << "D-Bus method invocation error: " << e.what() << std::endl;
-        return ""; // You may handle errors more appropriately
-    }
+    return 0;
 }
