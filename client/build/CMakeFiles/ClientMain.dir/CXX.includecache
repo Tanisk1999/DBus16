@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kpit/DBus_Code/client/api/sampleproxy.h
+dbus-c++-1/dbus-c++/dbus.h
+-
+cassert
+-
+
+/home/kpit/DBus_Code/client/src/main.cpp
+dbus-c++-1/dbus-c++/dbus.h
+-
+/home/kpit/DBus_Code/client/api/sampleproxy.h
+-
+iostream
+-
+

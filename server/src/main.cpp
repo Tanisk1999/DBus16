@@ -1,23 +1,20 @@
-#include <iostream>
 #include <dbus-c++-1/dbus-c++/dbus.h>
-#include "server/api/samplestub.h"
+#include "/home/kpit/DBus_Code/server/api/samplestub.h"
+#include <iostream>
 
 int main() {
     try {
-        // Create a default dispatcher
-        DBus::default_dispatcher_t::pointer_t dispatcher = DBus::DefaultDispatcher::create();
+        // Explicitly connect to the D-Bus session bus
+        DBus::Connection conn = DBus::Connection::SessionBus();
 
-        // Create a D-Bus connection
-        DBus::Connection::pointer conn = DBus::Connection::create(dispatcher, "tcp:host=localhost,port=12345");
+        // Create an object adaptor
+        com::example::DatabaseManager_adaptor* adaptor = new com::example::DatabaseManager_adaptor();
 
-        // Create an adaptor for the DatabaseManager interface
-        com::example::DatabaseManager_adaptor* adaptor;
-
-        // Register the adaptor on the connection
-        conn->registerObject("/", adaptor);
+        // Attach the object adaptor to the connection
+        conn.addAdaptor("/com/example/DatabaseManager", adaptor);
 
         // Run the main loop
-        dispatcher->enter();
+        conn.enterEventLoop();
 
     } catch (DBus::Error &e) {
         std::cerr << "Error: " << e.what() << std::endl;
@@ -26,5 +23,3 @@ int main() {
 
     return 0;
 }
-
-
