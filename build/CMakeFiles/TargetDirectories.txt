@@ -1,0 +1,8 @@
+/home/kpit/DBus_Code/build/CMakeFiles/rebuild_cache.dir
+/home/kpit/DBus_Code/build/CMakeFiles/edit_cache.dir
+/home/kpit/DBus_Code/build/server/CMakeFiles/rebuild_cache.dir
+/home/kpit/DBus_Code/build/server/CMakeFiles/edit_cache.dir
+/home/kpit/DBus_Code/build/server/CMakeFiles/ServerMain.dir
+/home/kpit/DBus_Code/build/client/CMakeFiles/rebuild_cache.dir
+/home/kpit/DBus_Code/build/client/CMakeFiles/edit_cache.dir
+/home/kpit/DBus_Code/build/client/CMakeFiles/ClientMain.dir

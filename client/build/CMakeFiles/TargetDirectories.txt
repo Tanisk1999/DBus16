@@ -1,3 +1,0 @@
-/home/kpit/DBus_Code/client/build/CMakeFiles/rebuild_cache.dir
-/home/kpit/DBus_Code/client/build/CMakeFiles/edit_cache.dir
-/home/kpit/DBus_Code/client/build/CMakeFiles/ClientMain.dir

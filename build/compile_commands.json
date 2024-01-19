@@ -1,0 +1,12 @@
+[
+{
+  "directory": "/home/kpit/DBus_Code/build/server",
+  "command": "/usr/bin/g++    -g   -std=gnu++17 -o CMakeFiles/ServerMain.dir/src/main.cpp.o -c /home/kpit/DBus_Code/server/src/main.cpp",
+  "file": "/home/kpit/DBus_Code/server/src/main.cpp"
+},
+{
+  "directory": "/home/kpit/DBus_Code/build/client",
+  "command": "/usr/bin/g++    -g   -std=gnu++17 -o CMakeFiles/ClientMain.dir/src/main.cpp.o -c /home/kpit/DBus_Code/client/src/main.cpp",
+  "file": "/home/kpit/DBus_Code/client/src/main.cpp"
+}
+]
